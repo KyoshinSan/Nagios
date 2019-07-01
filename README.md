@@ -5,9 +5,9 @@ Avec l’aide de Nagios, on peut surveiller les services et attributs de base. N
 
 ## Type de configuration
 
-1. Configuration Normal
+1. Configuration simple
 2. Configuration check_by_ssh
-3. Configuration NRPE
+3. Configuration NRPE (Nagios Remote Plugin Executor)
 
 ## Liste de services
 Ce tutoriel explique comment contrôler les **services** et les **attributs** des serveurs Linux / UNIX, tels que:
@@ -96,7 +96,7 @@ systemctl restart httpd
 systemctl enable httpd
 ```
 
-# 1. Configuration Normal 
+# 1. Configuration simple
 Des exemples de fichiers de configuration ont maintenant été installés dans le répertoire `/usr/local/nagios/etc`. Ces exemples de fichiers devraient fonctionner correctement pour commencer à utiliser Nagios. Vous devrez juste faire un changement avant de continuer.
 
 Modifiez le fichier de configuration `/usr/local/nagios/etc/objects/contacts.cfg` avec votre éditeur favori et remplacez l’adresse e-mail associée à la définition de contact **nagiosadmin** par celle que vous souhaitez utiliser pour recevoir des alertes.
