@@ -365,3 +365,89 @@ Visitez maintenant l'interface de nagios et vous devriez pouvoir voir les inform
 # 3. Configuration NRPE
 
 **NRPE** (**N**agios **R**emote **P**lugin **E**xecutor) est un agent de supervision qui permet de récupérer les informations à distance. Son principe de fonctionnement est simple : il suffit d’installer le serveur NRPE sur la machine distante et de l’interroger à partir du serveur Nagios.
+
+## Installer le dépôt EPEL
+
+Les plugins Nagios ainsi que les agents NRPE sont fournis par le dépôt EPEL. Extra Packages for Enterprise Linux (EPEL) est un groupe d'intérêt spécial de Fedora qui crée, met à jour et gère un ensemble de packages de haute qualité pour Enterprise Linux, notamment RHEL, CentOS et Scientific Linux (SL), Oracle Linux (OL).
+
+```
+yum install epel-release -y
+```
+
+## Installer NRPE et NRPE-plugins
+
+Pour effectuer des requêtes NRPE, le serveur et le client. Nagios aura besoin du plugin NRPE.
+
+Exécutez la commande suivante sur les 2 machines :
+
+```
+yum install -y nrpe nagios-plugins-all
+```
+
+## Configurer l'agent NRPE
+
+**Les manipulations à venir seront à appliquer sur chaque hôte possédant un agent NRPE.**
+
+Pour que le serveur Nagios puisse récupérer des informations au sujet de son hôte, il faut lui donner l’accès au serveur NRPE dans le fichier **/etc/nagios/nrpe.cfg**.
+
+Éditez le fichier **nrpe.cfg** :
+
+```
+vi /etc/nagios/nrpe.cfg
+```
+
+Repérez la ligne suivante :
+
+```
+allowed_hosts=127.0.0.1,::1
+```
+
+Ajoutez l’adresse IP du serveur Nagios.
+
+Indiquez les substituts de commande appropriés, par exemple :
+
+
+```
+command[check_users]=/usr/lib64/nagios/plugins/check_users -w 5 -c 10
+command[check_load]=/usr/lib64/nagios/plugins/check_load -r -w 8.0,7.5,7.0 -c 11.0,10.0,9.0
+command[check_disk]=/usr/lib64/nagios/plugins/check_disk -w 15% -c 10% /
+command[check_mem]=/usr/lib64/nagios/plugins/check_mem -w 75% -c 90%
+command[check_total_procs]=/usr/lib64/nagios/plugins/check_procs -w 300 -c 400
+command[check_swap]=/usr/lib64/nagios/plugins/check_swap -w 10 -c 5
+```
+
+## Firewall
+
+Assurez-vous d'autoriser l'accès à l'agent NRPE via le pare-feu.
+
+```bash
+### FirewallD ###
+
+firewall-cmd --permanent --add-service=nrpe
+firewall-cmd --reload
+```
+
+## Démarrer et permettre à NRPE de s'exécuter au démarrage du système
+
+```
+systemctl start nrpe
+systemctl enable nrpe
+```
+
+## Configuration de NRPE sur le serveur
+
+Ce sera la dernière étape pour configurer la surveillance Nagios à l'aide de NRPE. Nous devons maintenant définir la définition des commandes pour utiliser check_nrpe pour la connexion aux clients. Pour ce faire, nous devrons éditer **commands.cfg**, situé dans le dossier **/usr/local/nagios/etc/objects/**. Ouvrir le fichier :
+
+```
+vim /usr/local/nagios/etc/objects/commands.cfg
+```
+
+Ajouter les commandes suivantes au fichier : 
+
+```
+# this command runs a program $ARG1$ with no arguments
+define command {
+        command_name    check_nrpe_1arg
+        command_line    /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+}
+```
