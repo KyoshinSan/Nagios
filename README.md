@@ -442,7 +442,7 @@ Ce sera la dernière étape pour configurer la surveillance Nagios à l'aide de 
 vim /usr/local/nagios/etc/objects/commands.cfg
 ```
 
-Ajouter les commandes suivantes au fichier : 
+Ajouter la commande suivantes au fichier : 
 
 ```
 # this command runs a program $ARG1$ with no arguments
