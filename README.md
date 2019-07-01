@@ -83,7 +83,7 @@ Exécutez la commande suivante pour installer le thème **exfoliation** de Nagio
 make install-exfoliation
 ```
 
-Créez un compte d'utilisateur (nagiosadmin) pour vous connecter à l'interface Web de Nagios. Rappelez-vous le mot de passe que vous avez attribué à cet utilisateur - vous en aurez besoin plus tard.
+Créez un compte d'utilisateur (**nagiosadmin**) pour vous connecter à l'interface Web de Nagios. Rappelez-vous le mot de passe que vous avez attribué à cet utilisateur - vous en aurez besoin plus tard.
 
 ```
 htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
