@@ -5,9 +5,9 @@ Avec l’aide de Nagios, on peut surveiller les services et attributs de base. N
 
 ## Type de configuration
 
-[1. Configuration simple](https://github.com/KyoshinSan/Nagios/blob/master/README.md#1-configuration-simple)
-2. Configuration check_by_ssh
-3. Configuration NRPE (Nagios Remote Plugin Executor)
+1. [Configuration simple](https://github.com/KyoshinSan/Nagios/blob/master/README.md#1-configuration-simple)
+2. [Configuration check_by_ssh](https://github.com/KyoshinSan/Nagios/blob/master/README.md#1-configuration-simple)
+3. [Configuration NRPE (Nagios Remote Plugin Executor)](https://github.com/KyoshinSan/Nagios/blob/master/README.md#1-configuration-simple)
 
 ## Liste de services
 Ce tutoriel explique comment contrôler les **services** et les **attributs** des serveurs Linux / UNIX, tels que:
