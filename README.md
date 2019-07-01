@@ -232,11 +232,11 @@ Accédez maintenant à l'interface Web Nagios à l'aide de l'URL suivante. Vous 
 
 [http://ip-du-serveur/nagios/](#)
 
-Screenshot
+![Screenshot_1](https://raw.githubusercontent.com/KyoshinSan/Nagios/master/Doc%20nagios/Screenshot_1.png)
 
 La console Nagios ressemblera à celle ci-dessous.
 
-Screenshot
+![Screenshot_2](https://raw.githubusercontent.com/KyoshinSan/Nagios/master/Doc%20nagios/Screenshot_2.png)
 
 Cliquez sur **Host** dans le volet de gauche pour obtenir une liste des systèmes surveillés par Nagios. Nous n’avons ajouté aucun hôte à Nagios, il surveille donc simplement l’hôte local lui-même.
 
