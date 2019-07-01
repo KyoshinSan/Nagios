@@ -7,7 +7,7 @@ Avec l’aide de Nagios, on peut surveiller les services et attributs de base. N
 
 1. [Configuration simple](https://github.com/KyoshinSan/Nagios/blob/master/README.md#1-configuration-simple)
 2. [Configuration check_by_ssh](https://github.com/KyoshinSan/Nagios/blob/master/README.md#2-configuration-check_by_ssh)
-3. [Configuration NRPE (Nagios Remote Plugin Executor)](https://github.com/KyoshinSan/Nagios/blob/master/README.md#1-configuration-simple)
+3. [Configuration NRPE (Nagios Remote Plugin Executor)](https://github.com/KyoshinSan/Nagios/blob/master/README.md#3-configuration-nrpe)
 
 ## Liste de services
 Ce tutoriel explique comment contrôler les **services** et les **attributs** des serveurs Linux / UNIX, tels que:
@@ -364,4 +364,4 @@ Visitez maintenant l'interface de nagios et vous devriez pouvoir voir les inform
 
 # 3. Configuration NRPE
 
-**NRPE** (Nagios Remote PluginExecutor) est un agent de supervision qui permet de récupérer les informations à distance. Son principe de fonctionnement est simple : il suffit d’installer le serveur NRPE sur la machine distante et de l’interroger à partir du serveur Nagios.
+**NRPE** (**N**agios **R**emote **P**lugin **E**xecutor) est un agent de supervision qui permet de récupérer les informations à distance. Son principe de fonctionnement est simple : il suffit d’installer le serveur NRPE sur la machine distante et de l’interroger à partir du serveur Nagios.
