@@ -247,3 +247,117 @@ Cliquez sur **Services** dans le volet de gauche pour obtenir le statut des serv
 Screenshot
 
 # 2. Configuration check_by_ssh
+
+Dans cette configuration, nous allons apprendre à configurer la surveillance de nagios à l’aide de ssh. SSH étant généralement installé sur presque toutes les distributions Linux, aucun paquet supplémentaire ne doit être installé. Nous n'avons besoin que du plugin check_by_ssh, ce plugin permet à Nagios d'exécuter des plugins de surveillance et des scripts sur la machine distante de manière sécurisée, sans avoir à fournir d'informations d'authentification.
+
+Commençons donc la configuration pour configurer la surveillance Nagios à l’aide de SSH.
+
+## Configurer la connexion entre le serveur et le client Nagios
+
+Maintenant, nous devons configurer un mot de passe sans connexion entre le serveur et le client Nagios en utilisant la configuration de la clé publique/privée ssh. Pour créer les clés publique/privée, connectez-vous au **serveur nagios** et changez l’utilisateur en nagios.
+
+```
+su nagios
+```
+
+Ensuite créer les clés en utilisant la commande suivante :
+
+```
+ssh-keygen
+```
+
+Appuyez sur **Entrée** pour sélectionner le nom de fichier et le mot de passe par défaut. Une fois les clés générées, vous pouvez les localiser dans le dossier ‘/home/nagios/.ssh ’. Aller à ce dossier :
+
+```
+cd /home/nagios/.ssh
+```
+
+Copiez la clé publique (appelée **id_rsa.pub**) sur la machine cliente à l’aide de la commande suivante :
+
+```
+ssh-copy-id -i ~/.ssh/id_rsa.pub nagios@client_IP
+```
+
+Ensuite, connectez-vous à la machine cliente et au dossier ‘/home/nagios/.ssh’ et assurez-vous que les autorisations pour le fichier ‘authorised_keys’ est de 700, de sorte que seul l’utilisateur 'nagios ’puisse lire, écrire et exécuter ce dossier.
+
+```
+chmod 700 /home/nagios/.ssh/authorized_keys
+```
+
+## Tester la connexion
+
+Pour que check_by_ssh fonctionne, nous devrions pouvoir nous connecter à la machine cliente à partir du serveur nagios sans aucune authentification. Nous avons déjà apporté les modifications nécessaires sur la machine cliente et le serveur Nagios. Tout ce que nous avons à faire est de tester la connexion entre les deux.
+
+Pour tester la connexion, ssh sur la machine cliente à partir du serveur Nagios en utilisant la commande suivante :
+
+```
+ssh nagios@client_IP
+```
+
+Nous devrions pouvoir directement nous connecter à la machine cliente, sans nom d'utilisateur ni mot de passe.
+
+Une fois que nous avons testé avec succès la connexion entre le serveur et le client nagios, nous vérifierons ensuite la connectivité du plug-in check_by_ssh d'un serveur à l'autre. Alors déconnectez-vous du client et reconnectez-vous au serveur nagios et exécutez la commande suivante :
+
+```
+/usr/local/nagios/libexec/check_by_ssh -H client_ip -C uptime
+```
+
+Nous devrions obtenir la sortie suivante :
+
+```
+12:58:54 up 16 days, 21:29,  1 user,  load average: 0.00, 0.01, 0.05
+```
+
+Cela montre que le plugin check_by_ssh fonctionne également comme prévu.
+
+## Configuration de check_by_ssh sur le serveur
+
+Ce sera la dernière étape pour configurer la surveillance Nagios à l'aide de SSH. Nous devons maintenant définir la définition des commandes pour utiliser check_by_ssh pour la connexion aux clients. Pour ce faire, nous devrons éditer **commandes.cfg**, situé dans le dossier **/usr/local/nagios/etc/objects/**. Ouvrir le fichier :
+
+```
+vim /usr/local/nagios/etc/objects/commands.cfg
+```
+
+Ajouter les commandes suivantes au fichier : 
+
+```
+define command {
+
+	command_name check_remote_disk
+	command_line $USER1$/check_by_ssh -H $HOSTADDRESS$ -C ‘/usr/lib/nagios/plugins/check_disk -w $ARG1$ -c $ARG2$’
+}
+
+define command{
+
+	command_name check_remote_users
+	command_line $USER1$/check_by_ssh -H $HOSTADDRESS$ -C ‘/usr/lib/nagios/plugins/check_users -w $ARG2$ -c $ARG3$’
+}
+
+define command{
+
+	command_name check_remote_load
+	command_line $USER1$/check_by_ssh -H $HOSTADDRESS$ -C ‘/usr/lib/nagios/plugins/check_load -w $ARG1$ -c $ARG2$’
+
+}
+
+define command{
+
+	command_name check_remote_procs
+	command_line $USER1$/check_by_ssh -H $HOSTADDRESS$ -C ‘/usr/lib/nagios/plugins/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$’
+
+}
+
+define command{
+
+	command_name check_remote_swap
+	command_line $USER1$/check_by_ssh -H $HOSTADDRESS$ -C ‘/usr/lib/nagios/plugins/check_swap -w $ARG1$ -c $ARG2$’
+}
+```
+
+Selon la manière dont vous avez configuré nagios et les plugins, vous devrez peut-être changer la même chose dans les commandes mentionnées ci-dessus. Maintenant, sauvegardez le fichier, quittez et redémarrez le serveur nagios pour appliquer les modifications.
+
+```
+service nagios restart
+```
+
+Visitez maintenant l'interface de nagios et vous devriez pouvoir voir les informations sur le client. Ceci termine le didacticiel sur la configuration de la surveillance Nagios à l’aide de SSH.
