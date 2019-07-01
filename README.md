@@ -361,3 +361,7 @@ service nagios restart
 ```
 
 Visitez maintenant l'interface de nagios et vous devriez pouvoir voir les informations sur le client. Ceci termine le didacticiel sur la configuration de la surveillance Nagios à l’aide de SSH.
+
+# 3. Configuration NRPE
+
+**NRPE** (Nagios Remote PluginExecutor) est un agent de supervision qui permet de récupérer les informations à distance. Son principe de fonctionnement est simple : il suffit d’installer le serveur NRPE sur la machine distante et de l’interroger à partir du serveur Nagios.
