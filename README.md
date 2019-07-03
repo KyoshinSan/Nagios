@@ -240,11 +240,11 @@ La console Nagios ressemblera à celle ci-dessous.
 
 Cliquez sur **Host** dans le volet de gauche pour obtenir une liste des systèmes surveillés par Nagios. Nous n’avons ajouté aucun hôte à Nagios, il surveille donc simplement l’hôte local lui-même.
 
-Screenshot
+![Screenshot_3](https://raw.githubusercontent.com/KyoshinSan/Nagios/master/Doc%20nagios/Screenshot_3.png)
 
 Cliquez sur **Services** dans le volet de gauche pour obtenir le statut des services surveillés avec Nagios.
 
-Screenshot
+![Screenshot_4](https://raw.githubusercontent.com/KyoshinSan/Nagios/master/Doc%20nagios/Screenshot_4.png)
 
 # 2. Configuration check_by_ssh
 
