@@ -69,7 +69,7 @@ Avant de terminer, nous devons nous assurés que nous n'avons pas d'erreur.
 Si nous n'avons pas d'erreur, nous pouvons redémarrer le service nagios afin que la notification par SMS soit activé.
 
 ```
-service nagios restart
+systemctl restart nagios
 ```
 
 Nous avons à présent un service de notification par SMS associé à notre fameuse plateforme de supervision Nagios.
