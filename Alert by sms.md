@@ -102,7 +102,7 @@ Ensuite ajoutez l'utilisateur **nagios** au groupe **dialout** :
 sudo usermod -a -G dialout nagios
 ```
 
-Définissez le bit SUID sur la commande pour permettre à **nagios** d’exécuter gammu sous le compte root **root** :
+Définissez le bit SUID sur la commande pour permettre à **nagios** d’exécuter gammu sous le compte **root** :
 
 ```
 chmod 4755 /usr/bin/gammu
