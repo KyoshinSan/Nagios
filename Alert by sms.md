@@ -45,7 +45,7 @@ define command {
 }
 ```
 
-Cette commande est très simple. Nous envoyons le nom de l'hôte ayant un soucis, son statut, son adresse IP sur le réseau, l'heure et la date de la notification. Tout cela est envoyé vers notre $CONTACTPAGER$ qui n'est autre que notre contact SMS. Cependant nous devons définir ce $CONTACTPAGER$. Pour cela, nous allons ajouter un contact dans notre fichier de configuration **contacts.cfg** :
+Cette commande est très simple. Nous envoyons le nom de l'hôte ayant un soucis, son statut, son adresse IP sur le réseau, l'heure et la date de la notification. Tout cela est envoyé vers notre **$CONTACTPAGER$** qui n'est autre que notre contact SMS. Cependant nous devons définir ce **$CONTACTPAGER$**. Pour cela, nous allons ajouter un contact dans notre fichier de configuration **contacts.cfg** :
 
 ```
 define contact {
