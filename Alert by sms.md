@@ -24,7 +24,7 @@ Cf. [Envoie de SMS avec Gammu (Nokia E71)](https://github.com/KyoshinSan/Gammu)
 
 ## Configuration de Nagios
 
-Suite à l'ainstallation de Gammu, nous allons configurer Nagios afin qu'il puisse nous notifier par SMS. Pour cela, modifions le fichier **commands.cfg** :
+Suite à l'installation de Gammu, nous allons configurer Nagios afin qu'il puisse nous notifier par SMS. Pour cela, modifions le fichier **commands.cfg** :
 
 ```
 vi /etc/nagios/objects/commands.cfg
